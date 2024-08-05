@@ -14,20 +14,6 @@ pkgs.mkShell {
 
     vulkan-headers
     vulkan-loader
-    vulkan-tools
-    vulkan-validation-layers
-
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXrandr
-    xorg.libXi
-
-    libxkbcommon
-
-    shaderc
-    glslang
-
-    blender
   ];
 
   shellHook = ''
@@ -37,10 +23,8 @@ pkgs.mkShell {
     mkdir -p "$rustupHomeDir"
 
     export RUSTUP_HOME="$rustupHomeDir"
-    export LIBRARY_PATH="$LIBRARY_PATH:$projectDir/nix/profile/default/lib"
 
-    export VK_LAYER_PATH="${pkgs.vulkan-validation-layers}/share/vulkan/explicit_layer.d"
-    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/.nix-profile/lib/:${pkgs.vulkan-loader}/lib:${pkgs.libxkbcommon}/lib:${pkgs.vulkan-validation-layers}/lib"
+    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/.nix-profile/lib/:${pkgs.vulkan-loader}/lib"
 
     cargo fetch
   '';
